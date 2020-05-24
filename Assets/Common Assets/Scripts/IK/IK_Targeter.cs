@@ -97,10 +97,12 @@ public class IK_Targeter : MonoBehaviour
             yield return null;
         }
 
+        var variable = transform.position;
         // For the second half of _duration, lerp from _mid to _desiredPos
         while (_start + _duration > Time.unscaledTime)
         {
-            transform.position = Vector3.Lerp(mid, desired, stepCurve.Evaluate((Time.unscaledTime - _start) / _duration));
+            Debug.Log((Time.unscaledTime - _start - (_duration/2)) / (_duration/2));
+            transform.position = Vector3.Lerp(variable, desired, stepCurve.Evaluate((Time.unscaledTime - _start - (_duration / 2)) / (_duration / 2))); //glorious brackets
             yield return null;
         }
         transform.position = desired;

@@ -39,7 +39,7 @@ public class IK_Solver : MonoBehaviour
     /// </summary>
     public float minDelta = 0.001f;
     /// <summary>
-    /// Strength of going back to the start position.
+    /// Strength of going back to the start position. Whatever that means
     /// </summary>
     [Range(0, 1)]
     public float SnapBackStrength = 1f;

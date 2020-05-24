@@ -1,0 +1,7 @@
+{
+	"window.closeWhenEmpty": true,
+	"terminal.integrated.fontFamily": "Fira Code",
+	"editor.fontLigatures": true,
+	"editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+	"editor.fontSize": 12
+}
