@@ -11,6 +11,7 @@ public class Gen_Tile : MonoBehaviour
 	Vector3[] vertices; //Local space
 	int[] triangles;
 	Color[] colours;
+	Vector2[] uvs;
 
 	[Header("Mesh Settings")]
 	public Vector2Int segments = Vector2Int.one * 10;
@@ -30,6 +31,14 @@ public class Gen_Tile : MonoBehaviour
 		GetComponent<MeshFilter>().mesh = mesh;
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Remesh();
+		}
+	}
+
 	public void Remesh()
 	{
 		GenerateMesh();
@@ -41,15 +50,15 @@ public class Gen_Tile : MonoBehaviour
 		//Loop through all points and create vertices
 		vertices = new Vector3[(segments.x + 1) * (segments.y + 1)]; //1 unit line has 2 verts, 2 unit long line has 3 vertices, et cetera
 		colours = new Color[(segments.x + 1) * (segments.y + 1)];
+		uvs = new Vector2[(segments.x + 1) * (segments.y + 1)];
 		for(int i = 0, z = 0; z <= segments.y; z++)
 		{
 			for(int x = 0; x <= segments.x; x++)
 			{				
 				float y = Mathf.PerlinNoise(noiseScale * (69 + transform.position.x + (x * length.x)/segments.x), noiseScale * (420 + transform.position.z + (z * length.y)/segments.y)) * noiseHeight; //apparently unity's perlin noise loops
 				vertices[i] = new Vector3(x * length.x/segments.x, y, z * length.y/segments.y);
-
 				colours[i] = gradient.Evaluate(Mathf.PerlinNoise(noiseScale * (69 + transform.position.x + (x * length.x) / segments.x), noiseScale * (420 + transform.position.z + (z * length.y) / segments.y)));
-
+				uvs[i] = new Vector2(x/segments.x, z/segments.y);
 				i++; 
 			}
 		}
@@ -83,6 +92,7 @@ public class Gen_Tile : MonoBehaviour
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.colors = colours;
+		mesh.uv = uvs;
 		mesh.RecalculateNormals();
 	}
 
