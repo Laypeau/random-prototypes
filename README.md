@@ -1,4 +1,8 @@
-# vroom-vroom
- Car game in Unity
+# General Prototypes
+I try out new stuff with this, because I can't be bothered making a new project
 
-https://trello.com/invite/b/4rEkHGIp/35cf4906d0d011fe7c61f738f3015bbe/vroom-vroom
+Contents
+- Inverse Kinematics
+- Procedural mesh generation
+- Antigravity vehicle
+- Interior mapping shader
