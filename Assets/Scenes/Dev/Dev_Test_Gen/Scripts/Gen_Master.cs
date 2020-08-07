@@ -22,7 +22,7 @@ public class Gen_Master : MonoBehaviour
 	void Awake()
 	{
 		if (focus == null || prefab_Tile == null)
-			throw new UnityException("Focus/tile not set");
+			throw new UnityException("Focus/tile object not set");
 			
 		prefab_Tile.GetComponent<Gen_Tile>().length = Vector2.one * tileSize;
 		prefab_Tile.GetComponent<Gen_Tile>().segments = Vector2Int.one * tileSegments;
