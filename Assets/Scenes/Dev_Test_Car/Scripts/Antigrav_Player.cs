@@ -70,14 +70,14 @@ public class Antigrav_Player : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (Input.GetAxisRaw("Accel") != 0)
+		if (Input.GetKeyDown(KeyCode.W))
 			accelTimer += Time.fixedDeltaTime;
 		else
 			accelTimer = 0f;
 		accelTimer = Mathf.Clamp(accelTimer, 0f, velCurve[velCurve.length - 1].time);
 
-		if (Input.GetAxisRaw("Turning") != 0)
-			turnTimer += Input.GetAxisRaw("Turning") * Time.fixedDeltaTime;
+		if (Input.GetAxisRaw("Horizontal") != 0)
+			turnTimer += Input.GetAxisRaw("Horizontal") * Time.fixedDeltaTime;
 		else
 			turnTimer = 0f;
 		turnTimer = Mathf.Clamp(turnTimer, -maxTurnSpeed, maxTurnSpeed);
@@ -93,7 +93,7 @@ public class Antigrav_Player : MonoBehaviour
 
 		transform.rotation = Quaternion.FromToRotation(transform.rotation * Vector3.up, rayHit.normal) * transform.rotation;
 
-		if (Input.GetAxisRaw("Accel") == 0)
+		if (!Input.GetKey(KeyCode.W))
 		{
 			if (rigidbody.velocity.magnitude < minSpeed)
 			{
@@ -110,7 +110,7 @@ public class Antigrav_Player : MonoBehaviour
 			rigidbody.AddForce(Quaternion.FromToRotation(transform.rotation * Vector3.up, rayHit.normal) * _accelCalc, ForceMode.VelocityChange);
 		}
 
-		if (Input.GetAxisRaw("Turning") == 0)
+		if (Input.GetAxisRaw("Horizontal") == 0)
 		{
 			if (rigidbody.angularVelocity.magnitude < 0.1)
 			{
@@ -130,7 +130,7 @@ public class Antigrav_Player : MonoBehaviour
 		rigidbody.angularVelocity = transform.rotation * new Vector3(0f, maxTurnSpeed * Input.GetAxis("Turning"), 0f);
 
 		#region [debug]
-		debug_03.SetText("Raw: " + Input.GetAxis("Decel").ToString("F"));
+		debug_03.SetText("Raw: " + Input.GetKey(KeyCode.S).ToString());
 		debug_04.SetText("Vel Eval:" + velCurve.Evaluate(accelTimer).ToString("F"));
 		debug_05.SetText("Drag: " + (-rigidbody.velocity.normalized * (((1 / maxSpeed) * rigidbody.velocity.sqrMagnitude + dragMore) * (1 + Input.GetAxis("Decel")))).magnitude.ToString("F"));
 
